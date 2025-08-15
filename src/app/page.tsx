@@ -1,3 +1,9 @@
+import ChatArea from "@/components/ChatArea";
+
 export default function Home() {
-  return <div className="">HI</div>;
+  return (
+    <main className="w-full">
+      <ChatArea />
+    </main>
+  );
 }
