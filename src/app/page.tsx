@@ -142,7 +142,7 @@ export default function Home() {
 
                 {/* Conversation Area */}
                 {hasSent && (
-                  <div className="space-y-6 overflow-y-auto max-h-[60vh] pr-1">
+                  <div className="space-y-6">
                     {messages.map((m, idx) => {
                       if (m.role === "user") {
                         return (
@@ -427,12 +427,8 @@ export default function Home() {
                   onClick={handleNewChat}
                   className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-sm hover:bg-white/15 transition-colors text-white flex items-center gap-2"
                 >
-                  <Image
-                    src="/icons/send.svg"
-                    alt="Send"
-                    width={20}
-                    height={20}
-                  />
+                  <RotateCcw size={15} />
+                  New Chat
                 </button>
               </div>
             )}
