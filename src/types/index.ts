@@ -1,4 +1,4 @@
-import type { TypedData, Address } from "viem";
+import type { Address } from "viem";
 
 export type Token = {
   name: string;
@@ -17,4 +17,10 @@ export type Message = {
   content: string;
   type?: MessageType;
   next?: Message;
+};
+
+export type StrategyPieChartData = {
+  name: string;
+  value: number;
+  color: string;
 };

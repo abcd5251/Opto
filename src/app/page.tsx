@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
-import { Percent, RotateCcw } from "lucide-react";
+import { ArrowUpRight, RotateCcw } from "lucide-react";
 import InvestmentForm from "@/components/InvestmentForm";
-import { Message, MessageType } from "@/types";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { Message, StrategyPieChartData } from "@/types";
 import StrategyMessage from "@/components/Messages/Strategy";
 
 export default function Home() {
@@ -20,8 +19,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
-
-  const prompts = ["Help me find some best DeFi strategies"];
 
   const pieData = [
     { name: "A", value: 30, color: "#4A64DC" },
@@ -89,7 +86,13 @@ export default function Home() {
     }, 2000);
   }
 
-  function handleStrategySubmit() {
+  function handleStrategySubmit(
+    data: { name: string; value: number; color: string }[]
+  ) {
+    setMessages((prev: Message[]) => [
+      ...prev,
+      { role: "user", type: "input", content: "Start Building Portfolio" },
+    ]);
     setIsLoading(true);
     setTimeout(() => {
       setMessages((prev: Message[]) => [
@@ -97,8 +100,7 @@ export default function Home() {
         {
           role: "assistant",
           type: "end",
-          content:
-            "Here is a draft diversified strategy across stable yields and blue-chip protocols. (Example content)",
+          content: "Portfolio built successfully!",
         },
       ]);
       setIsLoading(false);
@@ -141,11 +143,8 @@ export default function Home() {
         <div className="flex-1 max-h-[calc(100vh-101px-158px)] overflow-y-scroll">
           <div className="p-5 max-w-4xl mx-auto">
             <main className="space-y-20 pb-6">
-              {/* Welcome Section */}
               <section className="space-y-8">
-                {/* Welcome Message */}
                 {!loggedIn ? (
-                  // 未登入時：全寬 Welcome
                   <div className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6">
                     <h2 className="text-lg font-bold mb-3 text-white">
                       👋 Welcome to Opto DeFi Bot
@@ -157,7 +156,6 @@ export default function Home() {
                     </p>
                   </div>
                 ) : (
-                  // 登入時：限制寬度的 Welcome，不顯示標題，加上機器人頭像
                   <div className="flex justify-start">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
@@ -240,7 +238,10 @@ export default function Home() {
                       }
                       if (m.type === "end") {
                         return (
-                          <div className="flex justify-start" key={idx}>
+                          <div
+                            className="flex flex-col justify-start"
+                            key={idx}
+                          >
                             <div className="flex items-start gap-3">
                               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
                                 <Image
@@ -255,6 +256,14 @@ export default function Home() {
                                   {m.content}
                                 </div>
                               </div>
+                            </div>
+
+                            {/* Action buttons */}
+                            <div className="flex gap-2 mt-3">
+                              <button className="bg-[#5FECF9] flex items-center gap-2 text-black px-4 py-2 rounded-lg">
+                                <ArrowUpRight size={15} />
+                                View Analytics
+                              </button>
                             </div>
                           </div>
                         );
