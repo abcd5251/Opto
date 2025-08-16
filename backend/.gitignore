@@ -1,0 +1,18 @@
+# env
+venv
+.env
+output
+__pycache__
+.DS_Store
+
+# Files
+*.pdf
+*.json
+*.out
+data
+final_data
+
+# vector db
+pdf_storage
+data_storage
+.nfs*
