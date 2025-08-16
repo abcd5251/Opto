@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { usePrivy } from "@privy-io/react-auth";
+import { DEV_CLIENT_MIDDLEWARE_MANIFEST } from "next/dist/shared/lib/constants";
 
-export default function Home() {
+export default function ChatArea() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
+  const { ready: privyReady, authenticated, user } = usePrivy();
+
+  const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
   const prompts = [
     "Help me find some best DeFi strategies",
@@ -30,13 +35,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen text-white">
-      {/* Main Content */}
-      <div className="p-10 max-w-4xl mx-auto">
+    <div className="text-white flex gap-x-2 min-h-screen">
+      {/* Chat Area */}
+      <div className="p-5 max-w-4xl mx-auto">
         <main className="space-y-20">
-          {/* Welcome Section */}
           <section className="rounded-2xl space-y-8">
-            {/* Welcome Message */}
             <div className="rounded-2xl p-6">
               <h2 className="text-lg font-bold mb-3">
                 👋 Welcome to Opto DeFi Bot
@@ -107,12 +110,16 @@ export default function Home() {
           {/* Chat Section */}
           <section className="space-y-4 pb-20">
             <div className="bg-white/5 rounded-2xl p-5">
-              <div className="bg-white rounded-xl p-4 flex items-center justify-between mb-5">
+              <div
+                className={`rounded-xl p-4 flex items-center justify-between mb-5 ${
+                  loggedIn ? "bg-white" : "bg-gray-300"
+                }`}
+              >
                 <input
                   type="text"
                   value={inputValue}
+                  disabled={!loggedIn}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Ask me anything about DeFi investment"
                   className="text-gray-500 flex-1 bg-transparent outline-none text-primary-dark placeholder-gray-500 text-sm"
                 />
@@ -134,6 +141,7 @@ export default function Home() {
                   <button
                     key={index}
                     onClick={() => handlePromptClick(prompt)}
+                    disabled={!loggedIn}
                     className="px-4 py-2 bg-white/10 border border-white/20 rounded-full text-xs hover:bg-white/15 transition-colors"
                   >
                     {prompt}
@@ -144,6 +152,24 @@ export default function Home() {
           </section>
         </main>
       </div>
+
+      {/* Logged in - Dashboard */}
+      {loggedIn && (
+        <div className="pb-5">
+          <div className="bg-[#242A39] rounded-2xl space-y-8 h-full">
+            <div className="rounded-2xl p-6">
+              <h2 className="text-lg font-bold mb-3">
+                👋 Welcome to Opto DeFi Bot
+              </h2>
+              <p className="text-sm opacity-90 leading-relaxed">
+                I'm your DeFi investment copilot. You can build a
+                risk-diversified DeFi portfolio, or ask me anything about DeFi
+                investment.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
