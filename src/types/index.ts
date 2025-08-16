@@ -9,3 +9,12 @@ export type Token = {
     [key: number]: Address;
   };
 };
+
+export type MessageType = "input" | "strategy" | "end" | undefined;
+
+export type Message = {
+  role: "user" | "assistant" | "system";
+  content: string;
+  type?: MessageType;
+  next?: Message;
+};

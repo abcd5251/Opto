@@ -13,19 +13,19 @@ import { Token } from "@/types";
 import { useChainId, useBalance } from "wagmi";
 import { formatUnits } from "viem";
 
-const invest = async () => {
-  console.log("ok");
-};
-
-const handleSubmit = (e: FormEvent) => {
-  e.preventDefault();
-
-  invest();
-};
-
-export default function InvestmentForm() {
+export default function InvestmentForm({
+  onSubmit,
+}: {
+  onSubmit: (amount: string) => void;
+}) {
   const [amount, setAmount] = useState<string>("");
   const [currency, setCurrency] = useState<Token>(USDC);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    onSubmit(amount);
+  };
 
   return (
     <form onSubmit={handleSubmit}>

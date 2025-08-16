@@ -4,21 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
-import { RotateCcw } from "lucide-react";
-import ConnectWalletButton from "@/components/ConnectWalletButton";
+import { Percent, RotateCcw } from "lucide-react";
 import InvestmentForm from "@/components/InvestmentForm";
+import { Message, MessageType } from "@/types";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import StrategyMessage from "@/components/Messages/Strategy";
 
 export default function Home() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const { ready: privyReady, authenticated, user } = usePrivy();
-  type MessageType = "input" | "strategy" | "end" | undefined;
-  type Message = {
-    role: "user" | "assistant" | "system";
-    content: string;
-    type?: MessageType;
-    next?: Message;
-  };
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [hasSent, setHasSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +22,12 @@ export default function Home() {
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
   const prompts = ["Help me find some best DeFi strategies"];
+
+  const pieData = [
+    { name: "A", value: 30, color: "#4A64DC" },
+    { name: "B", value: 30, color: "#5FECF9" },
+    { name: "C", value: 40, color: "#9B8AFB" },
+  ];
 
   const handleStrategyClick = (strategyType: "multi" | "single") => {
     if (!loggedIn || isLoading) return;
@@ -65,6 +67,43 @@ export default function Home() {
     setInputValue("");
     setIsLoading(false);
   };
+
+  function handleUsdcSubmit(amount: string) {
+    if (!amount) return;
+    setMessages((prev: Message[]) => [
+      ...prev,
+      { role: "user", type: "input", content: `${amount} USDC` },
+    ]);
+    setIsLoading(true);
+    setTimeout(() => {
+      setMessages((prev: Message[]) => [
+        ...prev,
+        {
+          role: "assistant",
+          type: "strategy",
+          content:
+            "Here is a draft diversified strategy across stable yields and blue-chip protocols. (Example content)",
+        },
+      ]);
+      setIsLoading(false);
+    }, 2000);
+  }
+
+  function handleStrategySubmit() {
+    setIsLoading(true);
+    setTimeout(() => {
+      setMessages((prev: Message[]) => [
+        ...prev,
+        {
+          role: "assistant",
+          type: "end",
+          content:
+            "Here is a draft diversified strategy across stable yields and blue-chip protocols. (Example content)",
+        },
+      ]);
+      setIsLoading(false);
+    }, 2000);
+  }
 
   const handleSend = () => {
     const text = inputValue.trim();
@@ -180,7 +219,9 @@ export default function Home() {
                               <div className="flex items-center gap-2 ml-11">
                                 <div className={`w-full max-w-sm py-3`}>
                                   <div>
-                                    <InvestmentForm />
+                                    <InvestmentForm
+                                      onSubmit={handleUsdcSubmit}
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -190,23 +231,11 @@ export default function Home() {
                       }
                       if (m.type === "strategy") {
                         return (
-                          <div className="flex justify-start" key={idx}>
-                            <div className="flex items-start gap-3">
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
-                                <Image
-                                  src="/crypto-icons/chains/296.svg"
-                                  alt="Bot"
-                                  width={32}
-                                  height={32}
-                                />
-                              </div>
-                              <div className="max-w-[80%] bg-white/5 rounded-2xl px-4 py-3">
-                                <p className="mb-3 text-base text-white/90">
-                                  {m.content}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+                          <StrategyMessage
+                            message={m}
+                            pieData={pieData}
+                            onSubmit={handleStrategySubmit}
+                          />
                         );
                       }
                       if (m.type === "end") {

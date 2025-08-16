@@ -17,7 +17,6 @@ export default function ChatArea() {
   };
   const [messages, setMessages] = useState<Message[]>([]);
   const [hasSent, setHasSent] = useState(false);
-  const [usdcAmount, setUsdcAmount] = useState("");
 
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
@@ -30,7 +29,6 @@ export default function ChatArea() {
   const handleNewChat = () => {
     setMessages([]);
     setHasSent(false);
-    setUsdcAmount("");
     setInputValue("");
   };
 
@@ -52,8 +50,7 @@ export default function ChatArea() {
     setInputValue("");
   };
 
-  const handleUsdcSubmit = () => {
-    const amount = usdcAmount.trim();
+  function handleUsdcSubmit(amount: string) {
     if (!amount) return;
     setMessages((prev: Message[]) => [
       ...prev,
@@ -65,8 +62,7 @@ export default function ChatArea() {
           "Here is a draft diversified strategy across stable yields and blue-chip protocols. (Example content)",
       },
     ]);
-    setUsdcAmount("");
-  };
+  }
 
   return (
     <div className="text-white flex gap-x-2 min-h-screen">
@@ -106,7 +102,7 @@ export default function ChatArea() {
                             <div className="flex items-center gap-2">
                               <div className={`w-full max-w-md py-3`}>
                                 <div>
-                                  <InvestmentForm />
+                                  <InvestmentForm onSubmit={handleUsdcSubmit} />
                                 </div>
                               </div>
                             </div>
