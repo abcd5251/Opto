@@ -1,13 +1,15 @@
 import { createConfig } from "@privy-io/wagmi";
-import { hedera } from "viem/chains";
+import { sepolia } from "viem/chains";
 import { http } from "wagmi";
 
 export const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 
 export const wagmiConfig = createConfig({
-  chains: [hedera],
+  chains: [sepolia],
   transports: {
-    [hedera.id]: http(`https://mainnet.hashio.io/api`),
+    [sepolia.id]: http(
+      `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`
+    ),
   },
 });
 

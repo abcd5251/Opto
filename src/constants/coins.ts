@@ -1,5 +1,5 @@
 import { Token } from "@/types";
-import { hedera } from "viem/chains";
+import { sepolia, hedera } from "viem/chains";
 
 export const USDC = {
   name: "USDC",
@@ -7,6 +7,7 @@ export const USDC = {
   decimals: 6,
   isNativeToken: false,
   chains: {
+    [sepolia.id]: "0x000000000000000000000000000000000006f89a",
     [hedera.id]: "0x000000000000000000000000000000000006f89a",
   },
 } as const satisfies Token;
