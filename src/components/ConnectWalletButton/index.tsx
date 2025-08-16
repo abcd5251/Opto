@@ -83,58 +83,37 @@ export default function ConnectWalletButton() {
     setAddress(user.wallet.address);
   }, [user]);
 
-  const backgroundStyle = {
-    background:
-      "linear-gradient(-86.667deg, #020102 0%, #2A1F3E 27%, #5888C4 60%, #020102 100%)",
-  };
-
   return (
-    <div
-      className={`border-[0.7px] border-gray-300 relative flex items-center justify-center text-center gap-x-1 text-white uppercase tracking-wider ${
-        isDropdownOpen ? "rounded-t-[10px]" : "rounded-[10px]"
-      } py-2 px-3 w-[150px] md:w-[190px] h-[48px]`}
-      style={backgroundStyle}
+    <button 
+      onClick={handleButtonOnClick}
+      className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#020102]/60 via-[#2A1F3E]/60 via-[#5888C4]/60 to-[#020102]/60 border-2 border-white/20 border-solid rounded-2xl hover:opacity-90 transition-all"
       ref={dropdownRef}
     >
-      <div
-        onClick={handleButtonOnClick}
-        className="pl-1 cursor-pointer flex items-center justify-between w-full h-full"
-      >
-        <div className="flex items-center gap-3 w-full mr-2">
-          {buttonReady ? (
-            loggedIn ? (
-              <div className="flex items-center justify-center w-full">
-                {/* chain image */}
-                <span className="mr-2">
-                  <Image
-                    src={`/crypto-icons/chains/${chainId}.svg`}
-                    alt="chain"
-                    width={20}
-                    height={20}
-                  />
-                </span>
-                <span className="text-center text-white font-medium text-sm">
-                  {user?.wallet?.address.slice(0, 6) +
-                    "..." +
-                    user?.wallet?.address.slice(-4)}
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center w-full">
-                <span className="text-center text-white font-medium text-sm">
-                  Sign up / Login
-                </span>
-              </div>
-            )
-          ) : (
-            <div className="flex items-center justify-center w-full">
-              <span className="text-center text-white font-medium text-sm">
-                Loading...
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      {buttonReady ? (
+        loggedIn ? (
+          <>
+            <Image
+              src={`/crypto-icons/chains/${chainId}.svg`}
+              alt="chain"
+              width={20}
+              height={20}
+            />
+            <span className="font-semibold text-sm tracking-wide text-white">
+              {user?.wallet?.address.slice(0, 6) +
+                "..." +
+                user?.wallet?.address.slice(-4)}
+            </span>
+          </>
+        ) : (
+          <span className="font-semibold text-sm tracking-wide uppercase text-white">
+            Signup / Login
+          </span>
+        )
+      ) : (
+        <span className="font-semibold text-sm tracking-wide text-white">
+          Loading...
+        </span>
+      )}
+    </button>
   );
 }
