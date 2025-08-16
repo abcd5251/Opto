@@ -1,6 +1,28 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-/* Base styles - 直接應用字體 */
+@theme {
+  /* DynaVest 字體配置 */
+  --font-family-sans: var(--font-manrope), Manrope, system-ui, sans-serif;
+  --font-family-mono: var(--font-geist-mono), 'Geist Mono', monospace;
+  
+  /* DynaVest 顏色配置 */
+  --color-primary-dark: #000001;
+  --color-primary-dark-blue: #001B31;
+  --color-primary-medium-blue: #1D6D87;
+  --color-primary-light-blue: #66AEBF;
+  --color-accent-blue: #4A9FE8;
+  --color-accent-cyan: #5fecf9;
+  --color-accent-purple: #b464f4;
+  --color-accent-green: #4AE895;
+  
+  /* 自定義半徑 */
+  --radius: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+/* DynaVest Base styles */
 body {
   background: linear-gradient(to bottom, #000001 10%, #001B31 41%, #1D6D87 69%, #66AEBF 100%);
   min-height: 100vh;

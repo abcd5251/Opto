@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
+import InvestmentForm from "../InvestmentForm";
 
 export default function ChatArea() {
   const [inputValue, setInputValue] = useState("");
@@ -44,7 +45,7 @@ export default function ChatArea() {
         role: "assistant",
         type: "input",
         content:
-          "Great, I can help build a diversified strategy. Enter your USDC amount to proceed:",
+          "We will diversify your token into reputable and secured yield protocols based on your preference. \n What's your investment size (amount)?",
       },
     ]);
     setHasSent(true);
@@ -84,7 +85,7 @@ export default function ChatArea() {
               </p>
             </div>
             {hasSent ? (
-              <div className="space-y-6 overflow-y-auto max-h-[40vh] pb-28 pr-1">
+              <div className="space-y-6 overflow-y-auto max-h-[40vh] pb-8 pr-1">
                 {messages.map((m, idx) => {
                   if (m.role === "user") {
                     return (
@@ -101,27 +102,13 @@ export default function ChatArea() {
                       <div className="flex justify-start" key={idx}>
                         <div className="max-w-[80%] text-white/90">
                           <p className="mb-3 text-sm">{m.content}</p>
-                          {/* Only render input control for the latest 'input' step */}
                           {idx === messages.length - 1 && (
                             <div className="flex items-center gap-2">
-                              <input
-                                type="number"
-                                inputMode="decimal"
-                                placeholder="Enter USDC amount"
-                                className="px-3 py-2 rounded-md bg-white/10 border border-white/20 text-white outline-none w-60"
-                                value={usdcAmount}
-                                onChange={(e) => setUsdcAmount(e.target.value)}
-                                onKeyDown={(e) => {
-                                  if (e.key === "Enter") handleUsdcSubmit();
-                                }}
-                              />
-                              <span className="text-sm">USDC</span>
-                              <button
-                                onClick={handleUsdcSubmit}
-                                className="px-3 py-2 rounded-md bg-white/15 border border-white/20 text-xs hover:bg-white/20"
-                              >
-                                Submit
-                              </button>
+                              <div className={`w-full max-w-md py-3`}>
+                                <div>
+                                  <InvestmentForm />
+                                </div>
+                              </div>
                             </div>
                           )}
                         </div>
