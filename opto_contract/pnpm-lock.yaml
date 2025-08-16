@@ -12,9 +12,6 @@ devDependencies:
   '@babel/core':
     specifier: ^7.23.9
     version: 7.28.3
-  '@layerzerolabs/devtools-evm-hardhat':
-    specifier: ^4.0.0
-    version: 4.0.0(@ethersproject/abi@5.8.0)(@ethersproject/abstract-signer@5.8.0)(@ethersproject/contracts@5.8.0)(@ethersproject/providers@5.8.0)(@layerzerolabs/devtools-evm@3.0.0)(@layerzerolabs/devtools@2.0.1)(@layerzerolabs/io-devtools@0.3.1)(@layerzerolabs/lz-definitions@3.0.125)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.8.0)(fp-ts@2.16.10)(hardhat-deploy@0.12.4)(hardhat@2.26.3)
   '@layerzerolabs/eslint-config-next':
     specifier: ~2.3.39
     version: 2.3.44(typescript@5.9.2)
@@ -42,9 +39,6 @@ devDependencies:
   '@layerzerolabs/oapp-evm':
     specifier: ^0.3.2
     version: 0.3.2(@layerzerolabs/lz-evm-messagelib-v2@3.0.125)(@layerzerolabs/lz-evm-protocol-v2@3.0.125)(@layerzerolabs/lz-evm-v1-0.7@3.0.125)(@openzeppelin/contracts-upgradeable@5.4.0)(@openzeppelin/contracts@5.4.0)
-  '@layerzerolabs/oft-evm':
-    specifier: ^3.2.0
-    version: 3.2.0(@layerzerolabs/lz-evm-messagelib-v2@3.0.125)(@layerzerolabs/lz-evm-protocol-v2@3.0.125)(@layerzerolabs/lz-evm-v1-0.7@3.0.125)(@layerzerolabs/oapp-evm@0.3.2)(@openzeppelin/contracts-upgradeable@5.4.0)(@openzeppelin/contracts@5.4.0)
   '@layerzerolabs/prettier-config-next':
     specifier: ^2.3.39
     version: 2.3.44
@@ -1706,7 +1700,7 @@ packages:
   /@safe-global/protocol-kit@1.3.0(ethers@5.8.0):
     resolution: {integrity: sha512-zBhwHpaUggywmnR1Xm5RV22DpyjmVWYP3pnOl4rcf9LAc1k7IVmw6WIt2YVhHRaWGxVYMd4RitJX8Dx2+8eLZQ==}
     dependencies:
-      '@ethersproject/address': 5.8.0
+      '@ethersproject/address': 5.7.0
       '@ethersproject/bignumber': 5.8.0
       '@ethersproject/solidity': 5.8.0
       '@safe-global/safe-deployments': 1.37.40
@@ -2771,7 +2765,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001735
-      electron-to-chromium: 1.5.202
+      electron-to-chromium: 1.5.203
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.2)
     dev: true
@@ -3519,8 +3513,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
 
-  /electron-to-chromium@1.5.202:
-    resolution: {integrity: sha512-NxbYjRmiHcHXV1Ws3fWUW+SLb62isauajk45LUJ/HgIOkUA7jLZu/X2Iif+X9FBNK8QkF9Zb4Q2mcwXCcY30mg==}
+  /electron-to-chromium@1.5.203:
+    resolution: {integrity: sha512-uz4i0vLhfm6dLZWbz/iH88KNDV+ivj5+2SA+utpgjKaj9Q0iDLuwk6Idhe9BTxciHudyx6IvTvijhkPvFGUQ0g==}
     dev: true
 
   /elliptic@6.6.1:

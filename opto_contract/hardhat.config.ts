@@ -1,8 +1,4 @@
-// Get the environment configuration from .env file
-//
-// To make use of automatic environment setup:
-// - Duplicate .env.example file and name it .env
-// - Fill in the environment variables
+// hardhat.config.ts
 import 'dotenv/config'
 
 import 'hardhat-deploy'
@@ -13,16 +9,10 @@ import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import './type-extensions'
-import './tasks/sendOFT'
+import './tasks/sendString'
+import './tasks/sendStringWithNativeDrop'
 
-// Set your preferred authentication method
-//
-// If you prefer using a mnemonic, set a MNEMONIC environment variable
-// to a valid mnemonic
 const MNEMONIC = process.env.MNEMONIC
-
-// If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
@@ -57,16 +47,17 @@ const config: HardhatUserConfig = {
     networks: {
         'sepolia-testnet': {
             eid: EndpointId.SEPOLIA_V2_TESTNET,
-            url: process.env.RPC_URL_SEPOLIA || 'https://sepolia.gateway.tenderly.co',
+            url: 'https://ethereum-sepolia-rpc.publicnode.com',
+            chainId: 11155111, // Sepolia chain id
             accounts,
-            oftAdapter: {
-                tokenAddress: '0x3004BeDe146C2cf3B894642420629177fbABfD1A', // WETH contract address
-            },
+            timeout: 200000, 
         },
         'hedera-testnet': {
             eid: EndpointId.HEDERA_V2_TESTNET,
-            url: process.env.RPC_URL_HEDERA_TESTNET || 'https://testnet.hashio.io/api',
+            url: 'https://testnet.hashio.io/api',
+            chainId: 296, // Hedera EVM chain id
             accounts,
+            timeout: 300000, 
         },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit
