@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
@@ -17,6 +17,12 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [hasSent, setHasSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Smoothly scroll to the bottom when messages update or loading changes
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, isLoading]);
 
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
@@ -452,6 +458,8 @@ export default function Home() {
                 )}
               </section>
             </main>
+            {/* Auto-scroll anchor */}
+            <div ref={bottomRef} />
           </div>
         </div>
 
