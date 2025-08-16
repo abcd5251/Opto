@@ -120,3 +120,90 @@
     @apply bg-background text-foreground;
   }
 }
+/* Base styles - 直接應用字體 */
+body {
+  background: linear-gradient(
+    to bottom,
+    #000001 10%,
+    #001b31 41%,
+    #1d6d87 69%,
+    #66aebf 100%
+  );
+  min-height: 100vh;
+  color: white;
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+/* 確保 Montserrat 可用於特定元素 */
+.font-montserrat {
+  font-family: var(--font-montserrat), Montserrat, sans-serif !important;
+}
+
+/* Component classes */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+}
+
+.button-primary {
+  background: var(--accent-blue);
+  color: white;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.button-primary:hover {
+  background: rgba(74, 159, 232, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.button-outline {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.button-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
