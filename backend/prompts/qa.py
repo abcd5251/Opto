@@ -1,0 +1,1 @@
+qa_prompt="You are a helpful assistant, given INFORMATION below, please answer the user's QUESTION. Please try to utilize the provided content! And answer the question in a simple and easy-to-understand way."
