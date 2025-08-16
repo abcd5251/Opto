@@ -1,15 +1,20 @@
 "use client";
 
 import ConnectWalletButton from "../ConnectWalletButton";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
-  return (
-    <header className="flex justify-between items-center px-5 md:px-20 py-6">
-      <div className="text-white font-bold text-2xl">Opto</div>
+  const router = useRouter();
 
-      <div className="flex items-center gap-4">
-        <ConnectWalletButton />
+  return (
+    <nav className="flex justify-between items-center px-10 py-7 border-b border-white/10">
+      <div
+        className="font-montserrat font-bold text-2xl cursor-pointer text-white"
+        onClick={() => router.push("/")}
+      >
+        Opto
       </div>
-    </header>
+      <ConnectWalletButton />
+    </nav>
   );
 }

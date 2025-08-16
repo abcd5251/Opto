@@ -30,8 +30,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${montserrat.variable}`}>
-        <Providers>{children}</Providers>
+      <body className={`h-screen ${manrope.variable} ${montserrat.variable}`}>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
