@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { FormEvent, useState } from "react";
 import { USDC } from "@/constants/coins";
+import { MoonLoader } from "react-spinners";
 import { Token } from "@/types";
 import { useChainId, useBalance } from "wagmi";
 import { formatUnits } from "viem";
@@ -71,6 +72,14 @@ const AmountInput = ({
     setAmount(formatUnits(data?.value!, currency.decimals));
   };
 
+  const formatAmount = (amount: number, fixed: number = 2) => {
+    if (amount === 0) return "0";
+    if (amount < 0.01) {
+      return "<0.01";
+    }
+    return `${Number(amount.toFixed(fixed))}`;
+  };
+
   return (
     <div>
       <div className="bg-gray-100 rounded-md border border-gray-300">
@@ -118,7 +127,16 @@ const AmountInput = ({
         <div className="flex gap-2 items-center w-full my-4 px-4">
           <span className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <span>Balance: </span>
-            <div>{data?.value || "loading..."}</div>
+            <span>
+              {isLoadingBalance ? (
+                <MoonLoader size={10} />
+              ) : (
+                formatAmount(
+                  Number(formatUnits(data?.value!, currency.decimals)),
+                  4
+                )
+              )}
+            </span>
             <span>{currency.name}</span>
           </span>
 
