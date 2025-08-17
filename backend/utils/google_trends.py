@@ -1,8 +1,6 @@
 import requests
 import os
 import json
-import re
-from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from typing import List, Dict, Tuple, Union
 
@@ -29,42 +27,12 @@ def format_results(organic_results: List[Dict[str, Union[str, None]]]) -> List[D
     
     return result_strings
 
-def convert_relative_date(date_str: str) -> str:
-    """
-    Convert a relative date string (e.g. '1 month ago', '2 weeks ago', '3 days ago', '5 hours ago')
-    into a formatted date string (YYYY-MM-DD) based on the current date and time.
-    
-    For conversion:
-      - month(s): each month is considered as 30 days.
-      - week(s): each week is 7 days.
-      - day(s): days remain as is.
-      - hour(s): hours are subtracted; the result is formatted as a date.
-    
-    If the string doesn't match one of the supported formats, the original string is returned.
-    """
-    pattern = r'(\d+)\s*(month|months|week|weeks|day|days|hour|hours)\s*ago'
-    match = re.match(pattern, date_str.strip().lower())
-    if match:
-        number = int(match.group(1))
-        unit = match.group(2)
-        if unit.startswith('month'):
-            delta = timedelta(days=number * 30)
-        elif unit.startswith('week'):
-            delta = timedelta(days=number * 7)
-        elif unit.startswith('day'):
-            delta = timedelta(days=number)
-        elif unit.startswith('hour'):
-            delta = timedelta(hours=number)
-        new_date = (datetime.now(timezone.utc) - delta).astimezone(timezone(timedelta(hours=8)))
-        return new_date.strftime('%Y-%m-%d %H:%M:%S')
-    return date_str
-
 def is_recent_news(date_str: str) -> bool:
     date_str = str(date_str).lower()
-    excluded_terms = ["month", "months", "year", "years"]
+    excluded_terms = ['day', 'days', "week", "weeks"]
     return all(term not in date_str for term in excluded_terms)
 
-def get_search_result(search_type: str, query: str) -> Tuple[Union[List[Dict[str, str]], Dict[str, str]], List[str]]:
+def get_google_trend(search_type: str, query: str) -> Tuple[Union[List[Dict[str, str]], Dict[str, str]], List[str]]:
     """
     Get the Google trend results for the given query.
 
@@ -84,7 +52,7 @@ def get_search_result(search_type: str, query: str) -> Tuple[Union[List[Dict[str
 
     payload = json.dumps({
         "q": query,
-        "num": 11,
+        "num": 10,
         "gl": "tw"
     })
     headers = {
@@ -94,7 +62,7 @@ def get_search_result(search_type: str, query: str) -> Tuple[Union[List[Dict[str
 
     try:
         response = requests.post(search_url, headers=headers, data=payload)
-        response.raise_for_status()  
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4XX, 5XX)
         results = response.json()
         related_searches = ["None"]
 
@@ -108,18 +76,16 @@ def get_search_result(search_type: str, query: str) -> Tuple[Union[List[Dict[str
             filtered_data = []
             
             for item in news_items:
-                converted_date = convert_relative_date(item.get('date', 'N/A'))
-                
                 if is_recent_news(item.get('date', '')):
                     news_data = {
                         'title': item.get('title', 'N/A'),
                         'link': item.get('link', 'N/A'),
                         'snippet': item.get('snippet', 'N/A'),
-                        'date': converted_date,
+                        'date': item.get('date', 'N/A'),
                         'source': item.get('source', 'N/A')
                     }
                     filtered_data.append(news_data)
-        
+            
             return filtered_data, related_searches
 
         return {"Response": "Invalid search type provided."}, related_searches
