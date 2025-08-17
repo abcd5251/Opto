@@ -155,7 +155,7 @@ export default function Home() {
                       👋 Welcome to Opto DeFi Bot
                     </h2>
                     <p className="text-sm opacity-90 leading-relaxed text-white">
-                      I'm your DeFi investment copilot. You can build a
+                      I&apos;m your DeFi investment copilot. You can build a
                       risk-diversified DeFi portfolio, or ask me anything about
                       DeFi investment.
                     </p>
@@ -165,7 +165,7 @@ export default function Home() {
                     <div className="flex items-start gap-3">
                       <div className="max-w-[70%] bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl px-4 py-3">
                         <p className="text-base opacity-90 leading-relaxed text-white">
-                          I'm your DeFi investment copilot. You can build a
+                          I&apos;m your DeFi investment copilot. You can build a
                           risk-diversified DeFi portfolio, or ask me anything
                           about DeFi investment.
                         </p>

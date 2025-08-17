@@ -62,14 +62,12 @@ const AmountInput = ({
     address: currency.chains![chainId],
   });
 
-  console.log("balance", data?.value);
-
   const handleCurrencyChange = (tokenName: string) => {
     console.log("ok");
   };
 
   const handleSetMax = () => {
-    setAmount(formatUnits(data?.value!, currency.decimals));
+    setAmount(formatUnits(data!.value!, currency.decimals));
   };
 
   const formatAmount = (amount: number, fixed: number = 2) => {
@@ -132,7 +130,7 @@ const AmountInput = ({
                 <MoonLoader size={10} />
               ) : (
                 formatAmount(
-                  Number(formatUnits(data?.value!, currency.decimals)),
+                  Number(formatUnits(data!.value!, currency.decimals)),
                   4
                 )
               )}
