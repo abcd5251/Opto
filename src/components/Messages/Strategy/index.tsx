@@ -3,9 +3,10 @@ import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Percent, ArrowUpRight } from "lucide-react";
 import { Message, StrategyPieChartData } from "@/types";
-import { exec } from "child_process";
-import { promisify } from "util";
-import path from "path";
+// Remove these Node.js imports:
+// import { exec } from "child_process";
+// import { promisify } from "util";
+// import path from "path";
 
 export default function StrategyMessage({
   message,
@@ -20,6 +21,9 @@ export default function StrategyMessage({
   const [editing, setEditing] = useState(false);
   const [data, setData] = useState(pieData);
   const [draft, setDraft] = useState(pieData);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [executionResult, setExecutionResult] = useState<string | null>(null);
+  const [executionError, setExecutionError] = useState<string | null>(null);
 
   const total = draft.reduce((sum, d) => sum + (Number(d.value) || 0), 0);
   const isExact = total === 100;
@@ -35,6 +39,32 @@ export default function StrategyMessage({
   const handleBuildPortfolio = async () => {
     onSubmit(data);
     setIsDisabled(true);
+    setIsExecuting(true);
+    setExecutionError(null);
+    setExecutionResult(null);
+    
+    try {
+      const response = await fetch('/api/execute-swap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to execute swap script');
+      }
+
+      setExecutionResult(data.message + '\n' + data.output);
+      onSubmit(data);
+      setIsDisabled(true);
+    } catch (error: any) {
+      setExecutionError(error.message);
+    } finally {
+      setIsExecuting(false);
+    }
   };
 
   return (

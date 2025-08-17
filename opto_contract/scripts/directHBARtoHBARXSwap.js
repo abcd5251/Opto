@@ -93,8 +93,6 @@ async function main() {
       const hbarxGainedFormatted = ethers.utils.formatUnits(hbarxGained, hbarxDecimals);
       
       console.log('\n🎉 Swap Summary:');
-      console.log('   HBAR Used:', hbarAmountDecimal, 'HBAR');
-      console.log('   HBARX Received:', hbarxGainedFormatted, 'HBARX');
       console.log('   Final HBARX Balance:', finalHbarxFormatted, 'HBARX');
       console.log('   Transaction Hash:', tx.hash);
     } else {
