@@ -122,7 +122,7 @@ const AmountInput = ({
           </div>
         </div>
 
-        <div className="flex gap-2 items-center w-full my-4 px-4">
+        {/* <div className="flex gap-2 items-center w-full my-4 px-4">
           <span className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <span>Balance: </span>
             <span>
@@ -146,7 +146,7 @@ const AmountInput = ({
           >
             MAX
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Invest button */}
