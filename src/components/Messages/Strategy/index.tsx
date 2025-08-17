@@ -33,15 +33,6 @@ export default function StrategyMessage({
   };
 
   const handleBuildPortfolio = async () => {
-    const execAsync = promisify(exec);
-    const contractDir = path.join(process.cwd(), "opto_contract");
-    const { stdout, stderr } = await execAsync(
-      "npx hardhat run scripts/directHBARtoHBARXSwap.js --network hedera-testnet",
-      {
-        cwd: contractDir,
-        timeout: 60000, // 60 seconds timeout
-      }
-    );
     onSubmit(data);
     setIsDisabled(true);
   };
@@ -92,6 +83,9 @@ export default function StrategyMessage({
                 />
                 <span className="font-medium">{d.name}</span>
                 <span className="text-white/60">{d.value}%</span>
+                <span>
+                  <Image src={d.icon} alt={d.name} width={20} height={20} />
+                </span>
               </li>
             ))}
           </ul>
@@ -103,7 +97,7 @@ export default function StrategyMessage({
                   className="inline-block w-3 h-3 rounded-sm"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="w-4 font-medium">{d.name}</span>
+                <span className="font-medium">{d.name}</span>
                 <input
                   type="text"
                   inputMode="numeric"

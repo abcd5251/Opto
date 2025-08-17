@@ -23,4 +23,5 @@ export type StrategyPieChartData = {
   name: string;
   value: number;
   color: string;
+  icon: string;
 };

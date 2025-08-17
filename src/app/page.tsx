@@ -26,9 +26,30 @@ export default function Home() {
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
   const pieData = [
-    { name: "Kitty", value: 30, color: "#4A64DC", icon: "" },
-    { name: "AAVE", value: 30, color: "#5FECF9", icon: "" },
-    { name: "Hello", value: 40, color: "#9B8AFB", icon: "" },
+    {
+      name: "Bonzo finance (Hedera)",
+      value: 30,
+      color: "#4A64DC",
+      icon: "/crypto-icons/chains/296.svg",
+    },
+    {
+      name: "AAVE Lending",
+      value: 20,
+      color: "#5FECF9",
+      icon: "/crypto-icons/ETH.png",
+    },
+    {
+      name: "stable Kitty",
+      value: 20,
+      color: "#9B8AFB",
+      icon: "/crypto-icons/chains/747.svg",
+    },
+    {
+      name: "Stader (Hedera)",
+      value: 30,
+      color: "#3B82F6",
+      icon: "/crypto-icons/chains/296.svg",
+    },
   ];
 
   const handleStrategyClick = (strategyType: "multi" | "single") => {
@@ -83,8 +104,7 @@ export default function Home() {
         {
           role: "assistant",
           type: "strategy",
-          content:
-            "Here is a draft diversified strategy across stable yields and blue-chip protocols. (Example content)",
+          content: `${amount} USDC it is! Here is the current recommended investment portfolio.`,
         },
       ]);
       setIsLoading(false);
