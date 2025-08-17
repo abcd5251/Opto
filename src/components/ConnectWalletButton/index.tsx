@@ -10,7 +10,6 @@ export default function ConnectWalletButton() {
   const [address, setAddress] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const chainId = useChainId();
   const router = useRouter();
 
@@ -60,23 +59,6 @@ export default function ConnectWalletButton() {
     }
   };
 
-  // DROPDOWN - close when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   useEffect(() => {
     console.log(user);
     if (!user?.wallet?.address) return;
@@ -84,10 +66,9 @@ export default function ConnectWalletButton() {
   }, [user]);
 
   return (
-    <button 
+    <button
       onClick={handleButtonOnClick}
       className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#020102]/60 via-[#2A1F3E]/60 via-[#5888C4]/60 to-[#020102]/60 border-2 border-white/20 border-solid rounded-2xl hover:opacity-90 transition-all"
-      ref={dropdownRef}
     >
       {buttonReady ? (
         loggedIn ? (
