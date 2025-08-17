@@ -7,10 +7,10 @@ async function main() {
     const myOApp = MyOApp.attach(contractAddress);
     
     // Test parameters
-    const dstEid = 40285; // Hedera testnet
+    const dstEid = 40161; // ✅ Correct Hedera testnet EID (was 40285)
     const message = 'Hello Hedera with native drop!';
     const receiver = '0x88cE2A88D4cdBC2b42D45748eC36103d6875dA91';
-    const nativeDropAmount = ethers.utils.parseEther('0.001'); // 0.001 ETH - this worked in quote
+    const nativeDropAmount = ethers.utils.parseEther('0.001'); // 0.001 ETH
     
     try {
         console.log('Getting quote first...');
