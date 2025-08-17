@@ -13,6 +13,7 @@ export default function StrategyMessage({
   pieData: StrategyPieChartData[];
   onSubmit: (data: StrategyPieChartData[]) => void;
 }) {
+  const [isDisabled, setIsDisabled] = useState(false);
   const [editing, setEditing] = useState(false);
   const [data, setData] = useState(pieData);
   const [draft, setDraft] = useState(pieData);
@@ -30,6 +31,7 @@ export default function StrategyMessage({
 
   const handleBuildPortfolio = () => {
     onSubmit(data);
+    setIsDisabled(true);
   };
 
   return (
@@ -147,6 +149,7 @@ export default function StrategyMessage({
               setDraft(data);
               setEditing(true);
             }}
+            disabled={isDisabled}
           >
             <Percent size={15} color="#5FECF9" />
             Change Percentage
@@ -154,6 +157,7 @@ export default function StrategyMessage({
           <button
             className="bg-[#5FECF9] flex items-center gap-2 text-black px-4 py-2 rounded-lg"
             onClick={handleBuildPortfolio}
+            disabled={isDisabled}
           >
             <ArrowUpRight size={15} />
             Start Building Portfolio
