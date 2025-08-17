@@ -6,11 +6,11 @@ import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
 import InvestmentForm from "@/components/InvestmentForm";
-import { Message, StrategyPieChartData } from "@/types";
+import { Message } from "@/types";
 import StrategyMessage from "@/components/Messages/Strategy";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const { ready: privyReady, authenticated, user } = usePrivy();
 
@@ -236,6 +236,7 @@ export default function Home() {
                       if (m.type === "strategy") {
                         return (
                           <StrategyMessage
+                            key={idx}
                             message={m}
                             pieData={pieData}
                             onSubmit={handleStrategySubmit}
@@ -266,10 +267,12 @@ export default function Home() {
 
                             {/* Action buttons */}
                             <div className="flex gap-2 mt-3">
-                              <button className="bg-[#5FECF9] flex items-center gap-2 text-black px-4 py-2 rounded-lg">
-                                <ArrowUpRight size={15} />
-                                View Analytics
-                              </button>
+                              <Link href="/analytics">
+                                <button className="bg-[#5FECF9] flex items-center gap-2 text-black px-4 py-2 rounded-lg">
+                                  <ArrowUpRight size={15} />
+                                  View Analytics
+                                </button>
+                              </Link>
                             </div>
                           </div>
                         );
@@ -487,7 +490,7 @@ export default function Home() {
               <input
                 type="text"
                 value={inputValue}
-                disabled={!loggedIn || isLoading}
+                disabled={!loggedIn || isLoading || hasSent}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={
                   isLoading
@@ -498,7 +501,7 @@ export default function Home() {
               />
               <button
                 onClick={handleSend}
-                disabled={!loggedIn || isLoading}
+                disabled={!loggedIn || isLoading || hasSent}
                 className="w-8 h-8 flex items-center justify-center hover:scale-110 transition-transform disabled:opacity-50"
               >
                 <Image
