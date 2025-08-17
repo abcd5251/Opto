@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
 import InvestmentForm from "@/components/InvestmentForm";
-import { Message } from "@/types";
+import { Message, Token } from "@/types";
 import StrategyMessage from "@/components/Messages/Strategy";
 import Link from "next/link";
 
@@ -111,11 +111,11 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  function handleUsdcSubmit(amount: string) {
+  function handleUsdcSubmit(amount: string, currency: Token) {
     if (!amount) return;
     setMessages((prev: Message[]) => [
       ...prev,
-      { role: "user", type: "input", content: `${amount} USDC` },
+      { role: "user", type: "input", content: `${amount} ${currency.name}` },
     ]);
     setIsLoading(true);
     setTimeout(() => {
@@ -124,7 +124,7 @@ export default function Home() {
         {
           role: "assistant",
           type: "strategy",
-          content: `${amount} USDC it is! Here is the current recommended investment portfolio.`,
+          content: `${amount} ${currency.name} it is! Here is the current recommended investment portfolio.`,
         },
       ]);
       setIsLoading(false);

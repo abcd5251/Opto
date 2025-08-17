@@ -7,7 +7,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { FormEvent, useState } from "react";
-import { USDC } from "@/constants/coins";
+import { USDC, ETH } from "@/constants/coins";
 import { MoonLoader } from "react-spinners";
 import { Token } from "@/types";
 import { useChainId, useBalance } from "wagmi";
@@ -16,15 +16,15 @@ import { formatUnits } from "viem";
 export default function InvestmentForm({
   onSubmit,
 }: {
-  onSubmit: (amount: string) => void;
+  onSubmit: (amount: string, currency: Token) => void;
 }) {
   const [amount, setAmount] = useState<string>("");
-  const [currency, setCurrency] = useState<Token>(USDC);
+  const [currency, setCurrency] = useState<Token>(ETH);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    onSubmit(amount);
+    onSubmit(amount, currency);
   };
 
   return (
@@ -92,14 +92,14 @@ const AmountInput = ({
             onChange={(e) => setAmount(e.target.value)}
           />
           <div className="shrink-0 md:min-w-[100px]">
-            <Select value={USDC.name} onValueChange={handleCurrencyChange}>
+            <Select value={currency.name} onValueChange={handleCurrencyChange}>
               <SelectTrigger className="text-black text-sm md:text-lg bg-transparent border-none shadow-none px-2 md:px-4 py-2 font-semibold hover:bg-gray-200 focus:ring-0 focus:ring-offset-0">
                 <div className="flex items-center gap-1 md:gap-2">
                   <SelectValue placeholder="Select asset" />
                 </div>
               </SelectTrigger>
               <SelectContent className="border-none">
-                {[USDC].map((token) => (
+                {[ETH, USDC].map((token) => (
                   <SelectItem
                     key={token.name}
                     value={token.name}
