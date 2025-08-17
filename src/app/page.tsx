@@ -210,19 +210,39 @@ export default function Home() {
     setInputValue("");
     setIsLoading(true);
 
-    // Simulate loading and then add bot response
-    setTimeout(() => {
-      setMessages((prev: Message[]) => [
-        ...prev,
-        {
-          role: "assistant",
-          type: "input",
-          content:
-            "We will diversify your token into reputable and secured yield protocols based on your preference. \n What's your investment size (amount)?",
-        },
-      ]);
-      setIsLoading(false);
-    }, 2000); // 2 seconds delay for realistic loading experience
+    // Send to backend and render AI response
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/defiInfo`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input_text: text }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const errText = await res.text().catch(() => "");
+          throw new Error(errText || `Request failed with ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Expecting a string content; fallback to stringify
+        const content = data.result;
+        setMessages((prev: Message[]) => [
+          ...prev,
+          { role: "assistant", content },
+        ]);
+      })
+      .catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : String(err);
+        setMessages((prev: Message[]) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: `There was an error contacting the backend.\n${message}`,
+          },
+        ]);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -535,8 +555,16 @@ export default function Home() {
               <input
                 type="text"
                 value={inputValue}
-                disabled={!loggedIn || isLoading || hasSent}
+                disabled={!loggedIn || isLoading}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    if (loggedIn && !isLoading && inputValue.trim()) {
+                      handleSend();
+                    }
+                  }
+                }}
                 placeholder={
                   isLoading
                     ? "Loading..."
@@ -546,7 +574,7 @@ export default function Home() {
               />
               <button
                 onClick={handleSend}
-                disabled={!loggedIn || isLoading || hasSent}
+                disabled={!loggedIn || isLoading}
                 className="w-8 h-8 flex items-center justify-center hover:scale-110 transition-transform disabled:opacity-50"
               >
                 <Image
