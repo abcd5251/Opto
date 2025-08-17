@@ -3,6 +3,9 @@ import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Percent, ArrowUpRight } from "lucide-react";
 import { Message, StrategyPieChartData } from "@/types";
+import { exec } from "child_process";
+import { promisify } from "util";
+import path from "path";
 
 export default function StrategyMessage({
   message,
@@ -29,7 +32,16 @@ export default function StrategyMessage({
     );
   };
 
-  const handleBuildPortfolio = () => {
+  const handleBuildPortfolio = async () => {
+    const execAsync = promisify(exec);
+    const contractDir = path.join(process.cwd(), "opto_contract");
+    const { stdout, stderr } = await execAsync(
+      "npx hardhat run scripts/directHBARtoHBARXSwap.js --network hedera-testnet",
+      {
+        cwd: contractDir,
+        timeout: 60000, // 60 seconds timeout
+      }
+    );
     onSubmit(data);
     setIsDisabled(true);
   };

@@ -26,9 +26,9 @@ export default function Home() {
   const loggedIn = privyReady && authenticated && user?.wallet?.address;
 
   const pieData = [
-    { name: "A", value: 30, color: "#4A64DC" },
-    { name: "B", value: 30, color: "#5FECF9" },
-    { name: "C", value: 40, color: "#9B8AFB" },
+    { name: "Kitty", value: 30, color: "#4A64DC", icon: "" },
+    { name: "AAVE", value: 30, color: "#5FECF9", icon: "" },
+    { name: "Hello", value: 40, color: "#9B8AFB", icon: "" },
   ];
 
   const handleStrategyClick = (strategyType: "multi" | "single") => {
