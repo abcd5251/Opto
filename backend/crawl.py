@@ -7,7 +7,8 @@ async def main():
         "https://stable.kittypunch.xyz/pools",
         "https://app.bonzo.finance/dashboard", 
         "https://www.staderlabs.com/hedera/defi/",
-        "https://defillama.com/chains"
+        "https://defillama.com/chains",
+        "https://gho.aave.com/markets/",
     ]
     
     data_dir = "./data"
