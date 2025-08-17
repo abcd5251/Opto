@@ -23,47 +23,47 @@ export default function AnalyticsPage() {
   const assets: Asset[] = [
     {
       symbol: "ETH",
-      amount: "0.055",
-      value: "246.7",
+      amount: "1.38",
+      value: "4763",
       chain: "Sepolia",
       icon: "/crypto-icons/ETH.png",
     },
     {
       symbol: "USDC",
-      amount: "460",
-      value: "459.9986",
+      amount: "5",
+      value: "5",
       chain: "Hedera",
       icon: "/crypto-icons/USDC.png",
     },
     {
       symbol: "FLOW",
-      amount: "50",
-      value: "20.05",
+      amount: "2.99",
+      value: "1.3",
       chain: "Flow",
       icon: "/crypto-icons/chains/747.svg",
     },
     {
       symbol: "USDF",
-      amount: "300",
-      value: "299.99",
+      amount: "0.593",
+      value: "0.593",
       chain: "Flow",
       icon: "/crypto-icons/usdf.png",
     },
     {
       symbol: "HBAR",
-      amount: "10",
-      value: "2.047",
+      amount: "148.94",
+      value: "37.83",
       chain: "Hedera",
       icon: "/crypto-icons/chains/295.svg",
     },
   ];
 
   const chartData = [
-    { name: "USDC", percentage: 24.8, color: "#4A9FE8" },
-    { name: "FLOW", percentage: 15.6, color: "#4AE8D9" },
-    { name: "HBAR", percentage: 15.6, color: "#000000" },
-    { name: "ETH", percentage: 15.6, color: "#627EEA" },
-    { name: "USDF", percentage: 15.6, color: "#2BB673" },
+    { name: "USDC", percentage: Number(assets["1"]["value"]), color: "#4A9FE8" },
+    { name: "FLOW", percentage: Number(assets["2"]["value"]), color: "#4AE8D9" },
+    { name: "HBAR", percentage: Number(assets["4"]["value"]), color: "#000000" },
+    { name: "ETH", percentage: Number(assets["0"]["value"]), color: "#627EEA" },
+    { name: "USDF", percentage: Number(assets["3"]["value"]), color: "#2BB673" },
   ];
 
   return (
@@ -86,14 +86,14 @@ export default function AnalyticsPage() {
                           Total Asset Value
                           <Eye size={14} className="text-white/60" />
                         </div>
-                        <div className="text-xl font-bold">$2,684,395.45</div>
+                        <div className="text-xl font-bold">$4821.45</div>
                       </div>
                       <div>
                         <div className="text-xs text-white/60 mb-2 flex items-center gap-2">
                           Total Position Value
                           <Eye size={14} className="text-white/60" />
                         </div>
-                        <div className="text-xl font-bold">$2,684,395.45</div>
+                        <div className="text-xl font-bold">$4801.45</div>
                       </div>
                       <div>
                         <div className="text-xs text-white/60 mb-2 flex items-center gap-2">
@@ -101,7 +101,7 @@ export default function AnalyticsPage() {
                           <Eye size={14} className="text-white/60" />
                         </div>
                         <div className="text-xl font-bold text-green-400">
-                          +$234,567.89
+                          +$2.2
                         </div>
                       </div>
                     </div>
