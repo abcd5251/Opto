@@ -7,7 +7,7 @@ export const USDC = {
   decimals: 6,
   isNativeToken: false,
   chains: {
-    [sepolia.id]: "0x000000000000000000000000000000000006f89a",
+    [sepolia.id]: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
     [hedera.id]: "0x000000000000000000000000000000000006f89a",
   },
 } as const satisfies Token;
