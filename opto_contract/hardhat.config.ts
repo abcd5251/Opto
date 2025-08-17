@@ -59,7 +59,7 @@ const config: HardhatUserConfig = {
             accounts,
             timeout: 300000, 
         },
-        'FLOW': {
+        'Flow-mainnet': {
             eid: EndpointId.FLOW_V2_MAINNET,
             url: 'https://mainnet.evm.nodes.onflow.org',
             chainId: 747, // FLOW EVM chain id
