@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePrivy } from "@privy-io/react-auth";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
@@ -164,14 +163,6 @@ export default function Home() {
                 ) : (
                   <div className="flex justify-start">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
-                        <Image
-                          src="/crypto-icons/chains/296.svg"
-                          alt="Bot"
-                          width={32}
-                          height={32}
-                        />
-                      </div>
                       <div className="max-w-[70%] bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl px-4 py-3">
                         <p className="text-base opacity-90 leading-relaxed text-white">
                           I'm your DeFi investment copilot. You can build a
@@ -204,14 +195,6 @@ export default function Home() {
                             key={idx}
                           >
                             <div className="flex items-start gap-3">
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
-                                <Image
-                                  src="/crypto-icons/chains/296.svg"
-                                  alt="Bot"
-                                  width={32}
-                                  height={32}
-                                />
-                              </div>
                               <div className="max-w-[70%] bg-white/5 rounded-2xl px-4 py-3">
                                 <p className="text-base text-white/90">
                                   {m.content}
@@ -220,7 +203,7 @@ export default function Home() {
                             </div>
                             {/* Only render input control for the latest 'input' step */}
                             {idx === messages.length - 1 && (
-                              <div className="flex items-center gap-2 ml-11">
+                              <div className="flex items-center gap-2">
                                 <div className={`w-full max-w-sm py-3`}>
                                   <div>
                                     <InvestmentForm
@@ -250,14 +233,6 @@ export default function Home() {
                             key={idx}
                           >
                             <div className="flex items-start gap-3">
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
-                                <Image
-                                  src="/crypto-icons/chains/296.svg"
-                                  alt="Bot"
-                                  width={32}
-                                  height={32}
-                                />
-                              </div>
                               <div className="max-w-[80%] bg-white/5 rounded-2xl px-4 py-3">
                                 <div className="text-white/70 text-sm">
                                   {m.content}
@@ -281,14 +256,6 @@ export default function Home() {
                       return (
                         <div className="flex justify-start" key={idx}>
                           <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-1">
-                              <Image
-                                src="/crypto-icons/chains/296.svg"
-                                alt="Bot"
-                                width={20}
-                                height={20}
-                              />
-                            </div>
                             <div className="max-w-[80%] bg-white/5 rounded-2xl p-6">
                               <div className="text-white/90 text-sm">
                                 {m.content}
@@ -303,15 +270,7 @@ export default function Home() {
                     {isLoading && (
                       <div className="flex justify-start">
                         <div className="flex items-start gap-3">
-                          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
-                            <Image
-                              src="/crypto-icons/chains/296.svg"
-                              alt="Bot"
-                              width={32}
-                              height={32}
-                            />
-                          </div>
-                          <div className="max-w-[70%] bg-white/5 rounded-2xl px-4 py-3">
+                          <div className="bg-white/5 rounded-2xl px-4 py-3">
                             <div className="flex items-center text-white/90">
                               <div className="flex space-x-1">
                                 <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
@@ -393,7 +352,6 @@ export default function Home() {
                 {!hasSent && loggedIn && (
                   <div className="flex justify-start">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 flex-shrink-0"></div>
                       <div className="max-w-[70%] w-full">
                         <div className="grid grid-cols-2 gap-5">
                           <div
