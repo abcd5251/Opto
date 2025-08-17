@@ -14,7 +14,7 @@ export type MessageType = "input" | "strategy" | "end" | undefined;
 
 export type Message = {
   role: "user" | "assistant" | "system";
-  content: string;
+  content: string | React.ReactNode;
   type?: MessageType;
   next?: Message;
 };

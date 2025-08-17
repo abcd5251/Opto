@@ -141,19 +141,60 @@ export default function Home() {
       return;
     }
 
-      setMessages((prev: Message[]) => [
-        ...prev,
-        {
-          role: "assistant",
-          type: "end",
-          content: `Portfolio built successfully!\n
-        Bonzo finance  30%  21USDC \n
-        AAVE Lending  20%  14USDC \n
-        stable Kitty  20%  14USDC \n
-        Stader  30%  21USDC`,
-        },
-      ]);
-      setIsLoading(false);
+    setMessages((prev: Message[]) => [
+      ...prev,
+      {
+        role: "assistant",
+        type: "end",
+        content: (
+          <>
+            <div className="text-white font-semibold mb-2">
+              Portfolio built successfully!
+            </div>
+            <div className="rounded-xl overflow-hidden divide-y divide-white/10">
+              <div className="flex items-center justify-between p-3">
+                <div className="text-white/90">Bonzo Finance</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-1 rounded-md bg-[#4A64DC]/20 text-[#4A64DC] font-medium">
+                    30%
+                  </span>
+                  <span className="text-white/70 text-sm">21 USDC</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between p-3">
+                <div className="text-white/90">AAVE Lending</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-1 rounded-md bg-[#5FECF9]/20 text-[#5FECF9] font-medium">
+                    20%
+                  </span>
+                  <span className="text-white/70 text-sm">14 USDC</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between p-3">
+                <div className="text-white/90">Stable Kitty</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-1 rounded-md bg-[#9B8AFB]/20 text-[#9B8AFB] font-medium">
+                    20%
+                  </span>
+                  <span className="text-white/70 text-sm">14 USDC</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between p-3">
+                <div className="text-white/90">Stader</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-1 rounded-md bg-[#3B82F6]/20 text-[#3B82F6] font-medium">
+                    30%
+                  </span>
+                  <span className="text-white/70 text-sm">21 USDC</span>
+                </div>
+              </div>
+            </div>
+          </>
+        ),
+      },
+    ]);
+
+    setIsLoading(false);
   }
 
   const handleSend = () => {
@@ -240,7 +281,7 @@ export default function Home() {
                           >
                             <div className="flex items-start gap-3">
                               <div className="max-w-[70%] bg-white/5 rounded-2xl px-4 py-3">
-                                <p className="text-base text-white/90">
+                                <p className="text-base text-white/90 whitespace-pre-line">
                                   {m.content}
                                 </p>
                               </div>
