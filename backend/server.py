@@ -1,16 +1,15 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 import json
-import os
-from typing import Dict, Optional
 from models.model import OpenAIModel
 from models.schema import InputData, QueryNews
+from fastapi import FastAPI, Request, HTTPException
 from utils.constants import *
+from pydantic import BaseModel
 from prompts.qa import qa_prompt
 from models.model import OpenAIModel
+from typing import Dict, Optional
 from utils.google_trends import get_google_trend
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-
 # Initialize FastAPI app
 app = FastAPI()
 
@@ -22,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # Data models for token balance management
 class TokenBalance(BaseModel):
     token_symbol: str
@@ -74,7 +72,6 @@ def update_user_balance(user_id: str, token_symbol: str, new_balance: float):
     all_balances[user_id][token_symbol] = new_balance
     save_balances(all_balances)
 
-# Existing endpoints
 @app.post("/process")
 async def process_input(data: InputData):
     """
@@ -125,6 +122,24 @@ async def get_news(data: QueryNews):
     summary_news_content = summary_news(total_news)
     return {"news": total_data, "summary": summary_news_content}
 
+# async def generate_summary():
+#     async with AsyncWebCrawler() as crawler:
+#         result = await crawler.arun(
+#             url="https://followin.io/en/news",
+#         )
+#         print(result.markdown)
+#         summary_news_content = summary_news(result.markdown)
+#         fear_result = get_fear_and_greed_index()
+        
+#         output_text = f"{summary_news_content}\n\nFear and Greed Index: {fear_result['value']}\nSentiment: {fear_result['sentiment']}"
+#         return output_text
+
+# @app.get("/summary")
+# async def get_summary():
+#     result = await generate_summary()
+#     print(result)
+#     return {"summary": result}
+
 @app.post("/defiInfo")
 async def process_simple_input(data: InputData):
         
@@ -133,6 +148,7 @@ async def process_simple_input(data: InputData):
     output, input_token, output_token = qa_model_instance.generate_string_text(prompt)
     
     return {"result": f"{output}"}
+
 
 # New Token Balance Management Endpoints
 
@@ -328,5 +344,3 @@ async def clear_user_balances(user_id: str, token_symbol: Optional[str] = None):
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "message": "Token balance API is running"}
-
-
