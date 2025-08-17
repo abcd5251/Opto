@@ -282,10 +282,10 @@ export default function Home() {
 
                             {/* Action buttons */}
                             <div className="flex gap-2 mt-3">
-                              <Link href="/analytics">
+                              <Link href="/profile">
                                 <button className="bg-[#5FECF9] flex items-center gap-2 text-black px-4 py-2 rounded-lg">
                                   <ArrowUpRight size={15} />
-                                  View Analytics
+                                  View Profile
                                 </button>
                               </Link>
                             </div>
