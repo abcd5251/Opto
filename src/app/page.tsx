@@ -31,24 +31,44 @@ export default function Home() {
       value: 30,
       color: "#4A64DC",
       icon: "/crypto-icons/chains/296.svg",
+      apy: 0.37,
+      tvl: "$407",
+      risk: "Low",
+      description:
+        "Conservative HBARX yield with minimal volatility—very low APR and limited activity; capital preservation..",
     },
     {
       name: "AAVE Lending",
       value: 20,
       color: "#5FECF9",
       icon: "/crypto-icons/ETH.png",
+      apy: 75.31,
+      tvl: "$2.39B",
+      risk: "Low",
+      description:
+        "Lend USDC on Aave Sepolia for high yield from borrowing demand and incentives; low protocol risk.",
     },
     {
       name: "stable Kitty",
       value: 20,
       color: "#9B8AFB",
       icon: "/crypto-icons/chains/747.svg",
+      apy: 4.43,
+      tvl: "$921,643.06",
+      risk: "Medium",
+      description:
+        "Deposit WFLOW on StableKitty for modest returns from fees and emissions; medium protocol risk.",
     },
     {
       name: "Stader (Hedera)",
       value: 30,
       color: "#3B82F6",
       icon: "/crypto-icons/chains/296.svg",
+      apy: 12,
+      tvl: "$108.38K",
+      risk: "Medium",
+      description:
+        "Stake HBAR via Stader (HBARX) for steady staking rewards and liquidity; medium protocol/validator risk.",
     },
   ];
 

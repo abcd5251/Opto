@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { Percent, ArrowUpRight } from "lucide-react";
+import { Percent, ArrowUpRight, AlertCircle } from "lucide-react";
 import { Message, StrategyPieChartData } from "@/types";
-// Remove these Node.js imports:
-// import { exec } from "child_process";
-// import { promisify } from "util";
-// import path from "path";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function StrategyMessage({
   message,
@@ -42,22 +43,22 @@ export default function StrategyMessage({
     setIsExecuting(true);
     setExecutionError(null);
     setExecutionResult(null);
-    
+
     try {
-      const response = await fetch('/api/execute-swap', {
-        method: 'POST',
+      const response = await fetch("/api/execute-swap", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to execute swap script');
+        throw new Error(data.error || "Failed to execute swap script");
       }
 
-      setExecutionResult(data.message + '\n' + data.output);
+      setExecutionResult(data.message + "\n" + data.output);
       onSubmit(data);
       setIsDisabled(true);
     } catch (error: any) {
@@ -116,6 +117,31 @@ export default function StrategyMessage({
                 <span>
                   <Image src={d.icon} alt={d.name} width={20} height={20} />
                 </span>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <AlertCircle size={14} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="rounded-md bg-white text-black py-2 px-3 shadow-lg">
+                      <div className="text-xs space-y-1">
+                        <div>
+                          <span className="font-medium">APY:</span> {d.apy}%
+                        </div>
+                        {d.tvl && (
+                          <div>
+                            <span className="font-medium">TVL:</span> {d.tvl}
+                          </div>
+                        )}
+                        {d.risk && (
+                          <div>
+                            <span className="font-medium">Risk:</span> {d.risk}
+                          </div>
+                        )}
+                        <div className="text-black/80">{d.description}</div>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
               </li>
             ))}
           </ul>
