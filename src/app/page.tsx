@@ -131,24 +131,29 @@ export default function Home() {
     }, 2000);
   }
 
-  function handleStrategySubmit(data: string) {
-    setIsLoading(true);
-    setMessages((prev: Message[]) => [
-      ...prev,
-      { role: "user", type: "input", content: "Start Building Portfolio" },
-    ]);
-    setTimeout(() => {
+  function handleStrategySubmit(data: string, stage: string = "loading") {
+    if (stage === "loading") {
+      setIsLoading(true);
+      setMessages((prev: Message[]) => [
+        ...prev,
+        { role: "user", type: "input", content: "Start Building Portfolio" },
+      ]);
+      return;
+    }
+
       setMessages((prev: Message[]) => [
         ...prev,
         {
           role: "assistant",
           type: "end",
           content: `Portfolio built successfully!\n
-        ${JSON.stringify(data)}`,
+        Bonzo finance  30%  21USDC \n
+        AAVE Lending  20%  14USDC \n
+        stable Kitty  20%  14USDC \n
+        Stader  30%  21USDC`,
         },
       ]);
       setIsLoading(false);
-    }, 2000);
   }
 
   const handleSend = () => {
@@ -273,7 +278,7 @@ export default function Home() {
                           >
                             <div className="flex items-start gap-3">
                               <div className="max-w-[80%] bg-white/5 rounded-2xl px-4 py-3">
-                                <div className="text-white/70 text-sm">
+                                <div className="text-white/70 text-sm whitespace-pre-line">
                                   {m.content}
                                 </div>
                               </div>
@@ -298,7 +303,7 @@ export default function Home() {
                         <div className="flex justify-start" key={idx}>
                           <div className="flex items-start gap-3">
                             <div className="max-w-[80%] bg-white/5 rounded-2xl p-6">
-                              <div className="text-white/90 text-sm">
+                              <div className="text-white/90 text-sm whitespace-pre-line">
                                 {m.content}
                               </div>
                             </div>

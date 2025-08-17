@@ -16,7 +16,7 @@ export default function StrategyMessage({
 }: {
   message: Message;
   pieData: StrategyPieChartData[];
-  onSubmit: (data: string) => void;
+  onSubmit: (data: string, stage: string) => void;
 }) {
   const [isDisabled, setIsDisabled] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -38,6 +38,7 @@ export default function StrategyMessage({
   };
 
   const handleBuildPortfolio = async () => {
+    onSubmit("", "loading");
     setIsDisabled(true);
     setIsExecuting(true);
     setExecutionError(null);
@@ -58,7 +59,7 @@ export default function StrategyMessage({
       }
 
       setExecutionResult(data.message + "\n" + data.output);
-      onSubmit(data.message + "\n" + data.output);
+      onSubmit("", "end");
       setIsDisabled(true);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
