@@ -61,8 +61,9 @@ export default function StrategyMessage({
       setExecutionResult(data.message + "\n" + data.output);
       onSubmit(data);
       setIsDisabled(true);
-    } catch (error: any) {
-      setExecutionError(error.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      setExecutionError(message);
     } finally {
       setIsExecuting(false);
     }
