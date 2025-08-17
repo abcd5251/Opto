@@ -59,6 +59,13 @@ const config: HardhatUserConfig = {
             accounts,
             timeout: 300000, 
         },
+        'FLOW': {
+            eid: EndpointId.FLOW_V2_MAINNET,
+            url: 'https://mainnet.evm.nodes.onflow.org',
+            chainId: 747, // FLOW EVM chain id
+            accounts,
+            timeout: 300000, 
+        },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit
             allowUnlimitedContractSize: true,
