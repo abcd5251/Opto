@@ -3,8 +3,8 @@ import type { Address } from "viem";
 
 import { wagmiConfig as config } from "@/providers/config";
 import { BaseStrategy } from "./base";
-import { KITTY_ABI } from "@/app/abis/kitty";
-import { ERC20_ABI } from "@/app/abis";
+import { KITTY_ABI } from "@/constants/abis/kitty";
+import { ERC20_ABI } from "@/constants/abis/erc20";
 import {
   KITTY_CONTRACTS,
   KittySupportedChains,
