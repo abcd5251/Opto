@@ -21,31 +21,3 @@ def get_token_balances(wallet_address):
     else:
         print(f"Failed to fetch token balances. Error code: {response.status_code}")
         return None
-
-def extract_data(results):
-    """
-    Extract title, snippet, and link from each result.
-    Combine title and snippet into one text and collect links into a list.
-    
-    Parameters:
-        results (list): List of dictionaries with keys "title", "snippet", and "link".
-    
-    Returns:
-        tuple: (combined_texts, links)
-            combined_texts (list): List of combined title and snippet strings.
-            links (list): List of links.
-    """
-    combined_texts = []
-    links = []
-    for item in results:
-        title = item.get("title", "")
-        snippet = item.get("snippet", "")
-        link = item.get("link", "")
-        
-        # Combine title and snippet into one string.
-        combined_text = f"{title} {snippet}".strip()
-        combined_texts.append(combined_text)
-        
-        links.append(link)
-    
-    return combined_texts, links
