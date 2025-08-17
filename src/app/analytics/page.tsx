@@ -22,23 +22,37 @@ export default function AnalyticsPage() {
 
   const assets: Asset[] = [
     {
-      symbol: "USDC",
-      amount: "1212345678",
-      value: "12.07",
+      symbol: "ETH",
+      amount: "0.055",
+      value: "246.7",
       chain: "Sepolia",
+      icon: "/crypto-icons/ETH.png",
+    },
+    {
+      symbol: "USDC",
+      amount: "460",
+      value: "459.9986",
+      chain: "Hedera",
       icon: "/crypto-icons/USDC.png",
     },
     {
       symbol: "FLOW",
-      amount: "1212345678",
-      value: "12.07",
+      amount: "50",
+      value: "20.05",
       chain: "Flow",
       icon: "/crypto-icons/chains/747.svg",
     },
     {
+      symbol: "USDF",
+      amount: "300",
+      value: "299.99",
+      chain: "Flow",
+      icon: "/crypto-icons/usdf.png",
+    },
+    {
       symbol: "HBAR",
-      amount: "1212345678",
-      value: "12.07",
+      amount: "10",
+      value: "2.047",
       chain: "Hedera",
       icon: "/crypto-icons/chains/295.svg",
     },
@@ -48,6 +62,8 @@ export default function AnalyticsPage() {
     { name: "USDC", percentage: 24.8, color: "#4A9FE8" },
     { name: "FLOW", percentage: 15.6, color: "#4AE8D9" },
     { name: "HBAR", percentage: 15.6, color: "#000000" },
+    { name: "ETH", percentage: 15.6, color: "#627EEA" },
+    { name: "USDF", percentage: 15.6, color: "#2BB673" },
   ];
 
   return (
