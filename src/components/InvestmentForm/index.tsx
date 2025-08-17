@@ -62,8 +62,13 @@ const AmountInput = ({
     address: currency.chains![chainId],
   });
 
-  const handleCurrencyChange = (tokenName: string) => {
-    console.log("ok");
+  const handleCurrencyChange = (value: string | Token) => {
+    if (typeof value === "string") {
+      const found = [ETH, USDC].find((t) => t.name === value);
+      if (found) setCurrency(found);
+    } else {
+      setCurrency(value);
+    }
   };
 
   const handleSetMax = () => {

@@ -131,21 +131,20 @@ export default function Home() {
     }, 2000);
   }
 
-  function handleStrategySubmit(
-    data: { name: string; value: number; color: string }[]
-  ) {
+  function handleStrategySubmit(data: string) {
+    setIsLoading(true);
     setMessages((prev: Message[]) => [
       ...prev,
       { role: "user", type: "input", content: "Start Building Portfolio" },
     ]);
-    setIsLoading(true);
     setTimeout(() => {
       setMessages((prev: Message[]) => [
         ...prev,
         {
           role: "assistant",
           type: "end",
-          content: "Portfolio built successfully!",
+          content: `Portfolio built successfully!\n
+        ${JSON.stringify(data)}`,
         },
       ]);
       setIsLoading(false);
@@ -279,6 +278,8 @@ export default function Home() {
                                 </div>
                               </div>
                             </div>
+
+                            {/* Final Content */}
 
                             {/* Action buttons */}
                             <div className="flex gap-2 mt-3">
